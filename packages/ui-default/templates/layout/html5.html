@@ -1,0 +1,264 @@
+{% import "components/form.html" as form with context %}
+{% import "components/sidemenu.html" as sidemenu with context %}
+{% import "components/paginator.html" as paginator with context %}
+{% import "components/nothing.html" as nothing with context %}
+{% import "components/noscript_note.html" as noscript_note with context %}
+{% import "components/user.html" as user with context %}
+<!DOCTYPE html>
+<html data-page="{{ page_name }}" data-layout="{{ layout_name }}" class="layout--{{ layout_name }} page--{{ page_name }} nojs" lang="{{ handler.viewLang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <style>
+    .chromeframe {
+    margin: .2em 0;
+    background: #ccc;
+    color: #000;
+    padding: .2em 0
+}
+ 
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+}
+ 
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #FFF;
+    -webkit-animation: spin 2s linear infinite;
+    -ms-animation: spin 2s linear infinite;
+    -moz-animation: spin 2s linear infinite;
+    -o-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    z-index: 1001
+}
+ 
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #FFF;
+    -webkit-animation: spin 3s linear infinite;
+    -moz-animation: spin 3s linear infinite;
+    -o-animation: spin 3s linear infinite;
+    -ms-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite
+}
+ 
+#loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #FFF;
+    -moz-animation: spin 1.5s linear infinite;
+    -o-animation: spin 1.5s linear infinite;
+    -ms-animation: spin 1.5s linear infinite;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite
+}
+ 
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+ 
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+ 
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+ 
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+ 
+#loader-wrapper .loader-section {
+    position: fixed;
+    top: 0;
+    width: 51%;
+    height: 100%;
+    background:  #1a83bc; /*背景色 原#1abc9c */
+    z-index: 1000;
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0)
+}
+ 
+#loader-wrapper .loader-section.section-left {
+    left: 0
+}
+ 
+#loader-wrapper .loader-section.section-right {
+    right: 0
+}
+ 
+.loaded #loader-wrapper .loader-section.section-left {
+    -webkit-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
+    -webkit-transition: all .7s .3s cubic-bezier(0.645,0.045,0.355,1.000);
+    transition: all .7s .3s cubic-bezier(0.645,0.045,0.355,1.000);
+}
+ 
+.loaded #loader-wrapper .loader-section.section-right {
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    transform: translateX(100%);
+    -webkit-transition: all .7s .3s cubic-bezier(0.645,0.045,0.355,1.000);
+    transition: all .7s .3s cubic-bezier(0.645,0.045,0.355,1.000);
+}
+ 
+.loaded #loader {
+    opacity: 0;
+    -webkit-transition: all .3s ease-out;
+    transition: all .3s ease-out;
+    
+}
+ 
+/* 原版load_title是从上面飘出去，感觉太二了注销掉了，结束自动消失 */
+.loaded #loader-wrapper {
+    visibility: hidden;
+    /*-webkit-transform: translateY(-100%);*/
+    /*-ms-transform: translateY(-100%);*/
+    /*transform: translateY(-100%);*/
+    /*-webkit-transition: all .3s 1s ease-out;*/
+    /*transition: all .3s 1s ease-out*/
+}
+ 
+.no-js #loader-wrapper {
+    display: none
+}
+ 
+.no-js h1 {
+    color: #222
+}
+ 
+#loader-wrapper #load_title {
+    font-family: 'Open Sans';
+    color: #FFF;
+    font-size: 19px;
+    width: 100%;
+    text-align: center;
+    z-index: 9999999999999;
+    position: absolute;
+    top: 60%;
+    opacity: 1;
+    line-height: 30px
+}
+ 
+#loader-wrapper #load_title span {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 13px;
+    color: #FFF;
+    opacity: .5
+}
+  </style>
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ static_url('apple-touch-icon-180x180.png') }}">
+  <link rel="icon" type="image/png" href="{{ static_url('favicon-32x32.png') }}" sizes="32x32">
+  <link rel="icon" type="image/png" href="{{ static_url('android-chrome-192x192.png') }}" sizes="192x192">
+  <link rel="icon" type="image/png" href="{{ static_url('favicon-96x96.png') }}" sizes="96x96">
+  <link rel="icon" type="image/png" href="{{ static_url('favicon-16x16.png') }}" sizes="16x16">
+  <meta name="theme-color" content="#56758f">
+  {% block ogp %}
+  <meta property="og:site_name" content="{{ (handler.domain|default({ui:[]})).ui.name|default(model.system.get('server.name')) }}" />
+  <meta property="og:title" content="{{ handler.renderTitle(page_name) }}" />
+  <meta property="og:url" content="{{ model.system.get('server.url') }}{{ handler.ctx.request.path }}" />
+  <meta property="og:image" content="{{ static_url('favicon-96x96.png') }}" />
+  {% endblock %}
+  {% if not isIE(handler.request.headers['user-agent']) %}
+    <script src="{{ static_url((handler.user|default({})).theme|default('default') + '.theme.js') }}?version={{ global.Hydro.version.ui }}"></script>
+    {% if process.env.DEV %}
+      <script type="text/javascript" src="{{ static_url('hydro.js') }}?version={{ global.Hydro.version.ui }}"></script>
+    {% else %}
+      <script type="text/javascript" src="{{ static_url('hydro-'+global.Hydro.version.ui+'.js') }}"></script>
+    {% endif %}
+  {% endif %}
+  <link rel="stylesheet" media="all" href="{{ static_url((handler.user|default({})).theme|default('default') + '.theme.css') }}?version={{ global.Hydro.version.ui }}">
+  <title>{{ handler.renderTitle(page_name) }}</title>
+  {% if not isIE(handler.request.headers['user-agent']) %}
+  <script>
+    var _htmlNode = document.documentElement;
+    _htmlNode.className = _htmlNode.className.replace(' nojs', ' hasjs');
+    var UiContext = '{{ UiContext|json|jsesc|safe }}';
+    var UserContext = '{{ UserContext|json|jsesc|safe }}';
+  </script>
+  {% endif %}
+</head>
+<body>
+  <script type="text/javascript">
+    window.onload = function () {
+        /* window中所有元素加载完成后，给body加个class -> loaded，也可以通过 jquery || vue 实现等价代码 */
+        document.body.className += ' loaded';
+    }
+  </script>
+  {% if handler.user.hasPriv(PRIV.PRIV_USER_PROFILE) or page_name == 'user_login' %}
+    
+    {% block body %}{% endblock %}
+  {% else %} 
+    <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+    <div id="load_title">正在加载中，请稍后</div>
+    </div>
+    <!-- <div style="background-color:#80b2d5;"> -->
+    <div style="background-color:#80b2d5;">
+      <script type="text/javascript">
+        window.location.replace("/login");
+      </script> 
+    </div>
+    
+
+  {% endif %}
+  {% if handler.user.hasPriv(PRIV.PRIV_USER_PROFILE) and handler.renderTitle(page_name) != '错误 - MarsOJ'%}
+    <!-- WPA start -->
+    <script id="qd30090678323f3acd17d5404231a6904cb35f07bfc5" src="https://wp.qiye.qq.com/qidian/3009067832/3f3acd17d5404231a6904cb35f07bfc5" charset="utf-8" async defer></script>
+    <!-- WPA end -->
+  
+  {% endif %}
+  {% if not isIE(handler.request.headers['user-agent']) %}
+  <script>
+    UiContext = '{{ UiContext|json|jsesc|safe }}';
+    UserContext = '{{ UserContext|json|jsesc|safe }}';
+  </script>
+  {% endif %}
+</body>
+</html>
