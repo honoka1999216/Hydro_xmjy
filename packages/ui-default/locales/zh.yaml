@@ -105,6 +105,7 @@ Calendar: 日历
 Can be Extended For: 可延期
 Cancel Score: 取消成绩
 Cancel: 取消
+Cancelled: 评测取消
 Categories: 分类
 Category: 分类
 Change Email: 修改电子邮件
@@ -328,6 +329,7 @@ Formula blocks: 公式区块
 fs_upload: 上传文件
 Gender Visibility: 性别可见性
 Gender: 性别
+Hacked: 非法侵入
 Hard Deadline: 最终截止时间
 Hash: 散列
 Have ALL PERMISSIONS in this domain: 在此域中拥有全部权限
@@ -447,6 +449,7 @@ Manager: 管理
 Mark Green: 标绿
 Mark Yellow: 标黄
 Memory Cost: 内存占用
+Memory Exceeded: 内存超限
 Memory Info: 内存信息
 Memory: 内存
 Message {0} not found.: 消息 {0} 不存在。
@@ -516,6 +519,7 @@ Or, with automatically filled invitation code: 或者，这是可以自动填写
 Ordered List: 有序列表
 Original Score: 原始分数
 OS Info: 系统信息
+Output Exceeded: 输出超限
 Owner: 所有者
 page.problem_detail.sidebar.show_category: 点击显示
 page.training_detail.invalid_when_not_enrolled: 未参加训练计划时您不能查看题目详情。
@@ -648,6 +652,8 @@ RP Algorithm: RP 算法
 Rule: 规则
 Run Pretest: 运行自测
 Run: 运行
+Running: 运行中
+Runtime Error: 运行时错误
 Sample Input: 输入数据
 Sample Output: 输出数据
 Save All Changes: 保存所有修改
@@ -730,6 +736,7 @@ Submitted: 已递交
 SuperUser: 超级管理员
 Support: 支持
 Switch account: 切换账户
+System Error: 系统错误
 Tags: 标签
 tasks_list: 任务列表
 Technical Information: 技术信息
@@ -761,6 +768,7 @@ This section cannot be challenged at present, so please complete the following s
 This type of files are not allowed to be uploaded.: 不允许上传这种文件。
 Time (Seconds): 耗时 (秒)
 Time Cost: 耗时
+Time Exceeded: 运行超时
 Time Extension: 延期
 Time: 时间
 timeago_locale: zh_CN
@@ -785,6 +793,7 @@ UI Language: 用户界面语言
 Uncompleted: 未完成
 Unique: 唯一
 Unknown field {0}.: 未知字段 {0}。
+Unknown Error: 未知错误
 Unknown: 未知
 Unordered List: 无序列表
 Unstar Topic: 取消收藏
@@ -849,6 +858,7 @@ Visible to registered users: 对注册用户可见
 Visit: 查看
 Vote problem solutions: 为题解投票
 Vote: 投票
+Waiting: 等待
 We will check code similarity after this contest.: 我们会在赛后检查代码相似度。
 WeChat Visibility: 微信可见性
 WeChat: 微信
@@ -864,6 +874,7 @@ Will be used as the domain icon.: 将被用作系统图标。
 With this feature, you can copy problems that you can view from a domain to some other domain. Their title, content, tags and categories will be copied. However, their test data are not copied directly.: 您可以通过这个功能将某域下您能查看的题目复制到其它域中，题目的标题、描述、标签与分类将被复制过来。但是测试数据不会被直接复制。
 Write Your Comment: 发表您的评论
 Write Your Solution: 发表您的题解
+Wrong Answer: 答案错误
 Year: 年
 You are not allowed to join the domain. The link is either invalid or expired.: 您无法加入该域，链接无效或已过期。
 You can create your own training plans and share with others.: 您可以创建您自己的训练计划并且与他人分享。
